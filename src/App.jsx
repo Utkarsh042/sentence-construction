@@ -12,7 +12,7 @@ function App() {
   const [score, setScore] = useState(0);
 
   useEffect(() => {
-    // In a real application, you would fetch this from an API
+    
     const questionsData = jsonData.data.questions;
     setQuestions(questionsData);
   }, []);
@@ -29,7 +29,6 @@ function App() {
     updatedAnswers[currentQuestionIndex] = answer;
     setUserAnswers(updatedAnswers);
     
-    // Check if answer is correct
     const currentQuestion = questions[currentQuestionIndex];
     const isCorrect = JSON.stringify(answer) === JSON.stringify(currentQuestion.correctAnswer);
     
@@ -37,7 +36,6 @@ function App() {
       setScore(prevScore => prevScore + 1);
     }
     
-    // Move to next question or results
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {

@@ -6,24 +6,19 @@ function Question({ question, onSubmit, questionNumber, totalQuestions, onQuit }
   const [timeLeft, setTimeLeft] = useState(30);
   const timerRef = useRef(null);
   
-  // Parse the question to identify where blanks should be
   const questionParts = question.question.split('_____________');
   
   useEffect(() => {
-    // Reset state when question changes
     setSelectedWords(Array(4).fill(null));
     setAvailableOptions([...question.options]);
     setTimeLeft(30);
     
-    // Clear previous timer
     if (timerRef.current) clearInterval(timerRef.current);
     
-    // Start new timer
     timerRef.current = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
           clearInterval(timerRef.current);
-          // Auto-submit when time runs out
           const filledAnswer = selectedWords.map(word => word || "");
           onSubmit(filledAnswer);
           return 0;
@@ -32,7 +27,6 @@ function Question({ question, onSubmit, questionNumber, totalQuestions, onQuit }
       });
     }, 1000);
     
-    // Cleanup timer on unmount
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
@@ -51,10 +45,8 @@ function Question({ question, onSubmit, questionNumber, totalQuestions, onQuit }
   
   const handleBlankClick = (index) => {
     if (selectedWords[index] !== null) {
-      // Add word back to available options
       setAvailableOptions([...availableOptions, selectedWords[index]]);
       
-      // Remove word from selected words
       const newSelectedWords = [...selectedWords];
       newSelectedWords[index] = null;
       setSelectedWords(newSelectedWords);

@@ -64,7 +64,6 @@ function Results({ questions, userAnswers, score, onPlayAgain, onHome }) {
     );
   }
   
-  // Helper function to display question with answers
   function displayQuestion(questionText, answers) {
     const parts = questionText.split('_____________');
     let result = '';
